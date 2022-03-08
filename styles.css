@@ -68,7 +68,20 @@ main {
 .tasks-list {
     list-style: none;
     margin-top: 24px;
+    max-width: 500px;    
 }
+
+.task-list-item {
+    display: flex;
+    margin-top: 16px;
+
+}
+
+.task-description {
+    padding-left: 8px;
+    margin-right: auto;
+}
+
 
 .button-list {
     background-color: transparent;
