@@ -1,0 +1,89 @@
+:root {
+    /* Las variables en CSS se definen con doble guion --variables-1 */
+    --main-bg-color: #393f49;
+    --white-bg-color: whitesmoke;
+    --blue-color: #61dbfb;
+    --grey-color: #8d9196;
+    --green-color: #61e786;
+    --red-color: #dc3545;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    color: var(--white-bg-color)
+}
+
+body {
+    font-family: Roboto;
+    background-color: var(--main-bg-color);
+    width: 100%;
+}
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#titulo-ppal {
+    margin-top: 16px;
+}
+
+/* Para seleccionar un elemento por ID se utiliza el signo "#" al principio del nombre del ID */
+#contador-tareas-pendientes {
+    color: var(--blue-color);
+    font-size: 12px;
+}
+
+.new-task-form {
+    margin-top: 24px;
+}
+
+/* Para seleccion elementos por la prioridad class lo hacemos agregando un "." al principio del nombre de la clase */
+.caja-de-text {
+    width: 306px;
+    height: 39px;
+    border-radius: 5px;
+    color: black;
+    padding: 0 12px; /* Modificar por direccion arriba-abajo izquiera-derecha */
+}
+
+.boton {
+    height: 37px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    padding: 0 12px 0 12px; /* Modificar las 4 propiedades arriba derecha abajo izquierda como las manesillas del reloj */
+}
+
+.submit-botton {
+    background-color: var(--blue-color);
+}
+
+.clear-button {
+    background-color: var(--red-color);
+}
+
+.tasks-list {
+    list-style: none;
+    margin-top: 24px;
+}
+
+.button-list {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.button-list > i {
+    font-size: 20px;
+    transition: all 0.3s ease-in;
+
+}
+
+.fa-circle-check:hover {
+    color: var(--green-color);
+
+}
