@@ -57,7 +57,7 @@ main {
     padding: 0 12px 0 12px; /* Modificar las 4 propiedades arriba derecha abajo izquierda como las manesillas del reloj */
 }
 
-.submit-botton {
+.submit-button {
     background-color: var(--blue-color);
 }
 
