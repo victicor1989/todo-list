@@ -96,7 +96,10 @@ main {
 
 }
 
+.fa-circle-check-done {
+    color: var(--green-color);
+}
+
 .fa-circle-check:hover {
     color: var(--green-color);
-
 }
