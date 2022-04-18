@@ -1,4 +1,5 @@
 console.log("Module loaded!")
+let todos = [];
 let $tituloPpal = document.querySelector("#titulo-ppal")
 let $tasksCounter = document.querySelector("#contador-tareas-pendientes")
 let $newTaskForm = document.querySelector(".new-task-form")
@@ -6,25 +7,14 @@ let $resetFormButton = document.querySelector(".clear-button")
 let $taskList = document.querySelector(".tasks-list")
 let $newTask = document.querySelector(".caja-de-text")
 
-$newTaskForm.addEventListener("submit",addTask) //addTask(event)
+window.addEventListener("load", function() {
+    const savedTodos = JSON.parse(window.localStorage.getItem("todos"))
+    todos = savedTodos || [] // En caso de que saved todos sea "null" o "undefined" ponemos por defecto un array vacio
+    renderDate()
+    renderTodos()
+})
 
-let todos = [
-    {
-        id: 1646783976958,
-        description: "Practicar mucho JavaScript",
-        isDone: false
-    },
-    {
-        id: 1646783976952,
-        description: "Aprender funciones del Array en JS",
-        isDone: true
-    },
-    {
-        id: 1647383222880,
-        description: "Aprender mucho CSS",
-        isDone: false
-    },
-];
+$newTaskForm.addEventListener("submit",addTask) //addTask(event)
 
 function addTask(event) {
     event.preventDefault()
@@ -41,13 +31,38 @@ function addTask(event) {
     }
 
     todos.push(newTask)
+    saveTodos()
     renderTodos()
     $newTask.value = ""
 }
 
 function checkTask(posicion) {
   todos[posicion].isDone = todos[posicion].isDone === true ? false: true;
+  saveTodos()
   renderTodos()
+}
+
+function removeTask(posicion) {
+    console.log(posicion)
+    todos = todos.filter(function(_, indice) {
+        return indice !== posicion
+    })
+    saveTodos()
+    renderTodos()
+}
+
+function renderDate(){
+    const daysOfWeek = ["Domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    const date = new Date()
+    const day = date.getDate()
+    const dayOfWeek = daysOfWeek[date.getDay()]
+    const month = months[date.getMonth()]
+    const year = date.getFullYear()
+
+    $tituloPpal.innerHTML = `${dayOfWeek}, ${day} ${month} ${year}`
+    
+
 }
 
 function renderPendingTasks() {
@@ -57,9 +72,12 @@ function renderPendingTasks() {
     })
      
     const counterPendingTasks = PendingTasksArray.length
-    $tasksCounter.innerHTML =  `${counterPendingTasks} ${counterPendingTasks > 1 ? "Tareas pendientes" : "Tarea pendiente"}
-    `
-};
+    $tasksCounter.innerHTML =  `${counterPendingTasks} ${counterPendingTasks > 1 ? "Tareas pendientes" : "Tarea pendiente"}`
+}
+
+function saveTodos() {
+    window.localStorage.setItem("todos", JSON.stringify(todos))
+}
 
 function renderTodos() {
     renderPendingTasks()
@@ -92,6 +110,12 @@ function renderTodos() {
             checkTask(posicion) 
         })
     })
-}
 
-renderTodos()
+    const $removeButtons = document.querySelectorAll(".remove-task-button")
+    console.log($removeButtons)
+    $removeButtons.forEach(function($removeButton, posicion) {
+        $removeButton.addEventListener("click", function() {
+            removeTask(posicion)
+        })
+    })
+}
